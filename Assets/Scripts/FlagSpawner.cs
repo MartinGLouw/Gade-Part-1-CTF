@@ -20,4 +20,14 @@ public class FlagSpawner : MonoBehaviour
         // Instantiate red flag at blue base
         Instantiate(redFlagPrefab, blueBase.position, Quaternion.identity);
     }
+
+    public void RespawnFlags()
+    {
+        // Destroy existing flags
+        Destroy(GameObject.FindWithTag("BlueFlag"));
+        Destroy(GameObject.FindWithTag("RedFlag"));
+
+        // Spawn new flags
+        SpawnFlags();
+    }
 }
