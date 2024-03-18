@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     public Flag redFlag;
     private Vector3 direction;
     private CharacterController controller;
-    private int score = 0;
+    public int score = 0;
+    public int Aiscore = 0;
 
     void Start()
     {
@@ -54,6 +55,16 @@ public class PlayerController : MonoBehaviour
         direction.y += Physics.gravity.y * Time.deltaTime;
 
         controller.Move(direction * Time.deltaTime);
+        if (TouchedByAI())
+        {
+            blueFlag.DropFlag();
+            blueFlag.ResetFlag();
+            redFlag.ResetFlag();
+        }
+    }
+    bool TouchedByAI()
+    {
+        return false;
     }
     
 

@@ -10,6 +10,7 @@ TagManager:
   - AiBase
   - BlueFlag
   - RedFlag
+  - AI
   layers:
   - Default
   - TransparentFX

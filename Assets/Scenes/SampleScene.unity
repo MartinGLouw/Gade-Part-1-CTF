@@ -167,6 +167,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1157460895}
     - target: {fileID: 447321546887083885, guid: 2c3ca58f8d0d5b743a61a1052df3458f, type: 3}
+      propertyPath: aiController
+      value: 
+      objectReference: {fileID: 849152123}
+    - target: {fileID: 447321546887083885, guid: 2c3ca58f8d0d5b743a61a1052df3458f, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 657584405}
@@ -223,6 +227,42 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c3ca58f8d0d5b743a61a1052df3458f, type: 3}
+--- !u!1 &282049175 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b7b6787b63223ce4498f1e51283c33ad, type: 3}
+  m_PrefabInstance: {fileID: 1131401650}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &282049176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282049175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 7d08c7d051753d24e93605651c24c443, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &531915373 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 784950477494277001, guid: 2c3ca58f8d0d5b743a61a1052df3458f, type: 3}
@@ -391,6 +431,8 @@ MonoBehaviour:
   jumpHeight: 2
   blueFlag: {fileID: 1855457114}
   redFlag: {fileID: 531915374}
+  score: 0
+  Aiscore: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,9 +539,11 @@ GameObject:
   - component: {fileID: 849152121}
   - component: {fileID: 849152120}
   - component: {fileID: 849152119}
+  - component: {fileID: 849152124}
+  - component: {fileID: 849152123}
   m_Layer: 0
   m_Name: Ai player
-  m_TagString: Untagged
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -592,6 +636,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &849152123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849152118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6cd680153556a84ead8bf9f12ec6c42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBase: {fileID: 1699403246}
+  aiBase: {fileID: 1157460896}
+  playerFlag: {fileID: 531915374}
+  aiFlag: {fileID: 1855457114}
+  playerC: {fileID: 657584405}
+--- !u!195 &849152124
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849152118}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 6.47
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,6 +846,9 @@ PrefabInstance:
     - {fileID: 65702495048144492, guid: b7b6787b63223ce4498f1e51283c33ad, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b7b6787b63223ce4498f1e51283c33ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 282049176}
     - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: b7b6787b63223ce4498f1e51283c33ad, type: 3}
       insertIndex: -1
       addedObject: {fileID: 241073018}
@@ -777,7 +863,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1157460896}
   - component: {fileID: 1157460897}
-  - component: {fileID: 1157460898}
   m_Layer: 0
   m_Name: Spawn Point AI Flag
   m_TagString: AiBase
@@ -819,20 +904,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1157460898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1157460895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86421a75c21319146aa1d987605c4fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Size: {x: 2.09523, y: 1, z: 2.1460476}
+  m_Center: {x: -0.048259735, y: 0, z: -0.1978178}
 --- !u!1001 &1162160951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -849,6 +922,10 @@ PrefabInstance:
       propertyPath: blueBase
       value: 
       objectReference: {fileID: 1157460895}
+    - target: {fileID: -3727685749528948454, guid: 1ecb6b7fac1791541ab5d2d7829caef1, type: 3}
+      propertyPath: aiController
+      value: 
+      objectReference: {fileID: 849152123}
     - target: {fileID: -3727685749528948454, guid: 1ecb6b7fac1791541ab5d2d7829caef1, type: 3}
       propertyPath: playerController
       value: 
@@ -982,7 +1059,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1699403246}
   - component: {fileID: 1699403247}
-  - component: {fileID: 1699403248}
   m_Layer: 0
   m_Name: Spawn Point Player Flag
   m_TagString: PlayerBase
@@ -1024,20 +1100,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1699403248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699403245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86421a75c21319146aa1d987605c4fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Size: {x: 4.36948, y: 1, z: 2.2510624}
+  m_Center: {x: -0.46434593, y: 0, z: 0.0379076}
 --- !u!1 &1855457113 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5535733175831737135, guid: 1ecb6b7fac1791541ab5d2d7829caef1, type: 3}

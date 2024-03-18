@@ -6,7 +6,8 @@ public class Flag : MonoBehaviour
     public GameObject redBase;
     public bool isBlueFlag;
     public bool isCarried = false;
-    public PlayerController playerController; // Add this line
+    public PlayerController playerController; 
+    public AIController aiController; // Add this line
 
     void Start()
     {
@@ -23,12 +24,38 @@ public class Flag : MonoBehaviour
                 isCarried = true;
                 Debug.Log(isCarried);
                 transform.parent = other.transform;
-                playerController.FlagPickedUp(this); // Notify the PlayerController
+                playerController.FlagPickedUp(this);
             }
             else
             {
                 ResetFlag();
             }
+        }
+        // Add this block to handle the AI picking up the flag
+        if (other.gameObject.CompareTag("AI"))
+        {
+            if ((other.gameObject.name == "AI" && !isBlueFlag) || (other.gameObject.name == "Player" && isBlueFlag))
+            {
+                Debug.Log("AI has picked up the flag!");
+                isCarried = true;
+                Debug.Log(isCarried);
+                transform.parent = other.transform;
+                aiController.FlagPickedUp(this); // Notify the AIController
+            }
+            else
+            {
+                ResetFlag();
+            }
+        }
+        if (other.gameObject.CompareTag("Player") && !isBlueFlag)
+        {
+            Debug.Log("Player has picked up the opponent's flag!");
+            transform.position = blueBase.transform.position;
+        }
+        else if (other.gameObject.CompareTag("AI") && isBlueFlag)
+        {
+            Debug.Log("AI has picked up the opponent's flag!");
+            transform.position = redBase.transform.position;
         }
     }
     public bool IsCarried()
@@ -44,7 +71,6 @@ public class Flag : MonoBehaviour
 
     public void ResetFlag()
     {
-        
         transform.position = isBlueFlag ? blueBase.transform.position : redBase.transform.position;
     }
 }
