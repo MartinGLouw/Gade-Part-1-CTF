@@ -5,9 +5,10 @@ public class Flag : MonoBehaviour
     public GameObject blueBase;
     public GameObject redBase;
     public bool isBlueFlag;
-    public bool isCarried = false;
+    public bool isCarriedByPlayer = false; 
+    public bool isCarriedByAI = false; 
     public PlayerController playerController; 
-    public AIController aiController; // Add this line
+    public AIController aiController;
 
     void Start()
     {
@@ -21,8 +22,8 @@ public class Flag : MonoBehaviour
             if ((other.gameObject.name == "Player" && isBlueFlag) || (other.gameObject.name == "AI" && !isBlueFlag))
             {
                 Debug.Log("Player has picked up the flag!");
-                isCarried = true;
-                Debug.Log(isCarried);
+                isCarriedByPlayer = true; 
+                Debug.Log(isCarriedByPlayer); 
                 transform.parent = other.transform;
                 playerController.FlagPickedUp(this);
             }
@@ -31,41 +32,37 @@ public class Flag : MonoBehaviour
                 ResetFlag();
             }
         }
-        // Add this block to handle the AI picking up the flag
         if (other.gameObject.CompareTag("AI"))
         {
             if ((other.gameObject.name == "AI" && !isBlueFlag) || (other.gameObject.name == "Player" && isBlueFlag))
             {
                 Debug.Log("AI has picked up the flag!");
-                isCarried = true;
-                Debug.Log(isCarried);
+                isCarriedByAI = true; 
+                Debug.Log(isCarriedByAI); 
                 transform.parent = other.transform;
-                aiController.FlagPickedUp(this); // Notify the AIController
+                aiController.FlagPickedUp(this);
             }
             else
             {
                 ResetFlag();
             }
         }
-        if (other.gameObject.CompareTag("Player") && !isBlueFlag)
-        {
-            Debug.Log("Player has picked up the opponent's flag!");
-            transform.position = blueBase.transform.position;
-        }
-        else if (other.gameObject.CompareTag("AI") && isBlueFlag)
-        {
-            Debug.Log("AI has picked up the opponent's flag!");
-            transform.position = redBase.transform.position;
-        }
     }
-    public bool IsCarried()
+
+    public bool IsCarriedByPlayer() 
     {
-        return isCarried;
+        return isCarriedByPlayer;
+    }
+
+    public bool IsCarriedByAI() 
+    {
+        return isCarriedByAI;
     }
 
     public void DropFlag()
     {
-        isCarried = false;
+        isCarriedByPlayer = false; 
+        isCarriedByAI = false; 
         transform.parent = null; 
     }
 

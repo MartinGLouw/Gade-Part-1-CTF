@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     public int score = 0;
     public int Aiscore = 0;
+    public FlagSpawner FS;
 
     void Start()
     {
@@ -64,15 +65,17 @@ public class PlayerController : MonoBehaviour
     }
     bool TouchedByAI()
     {
+        // Implement the logic to check if the player is shot or touched by the AI
+        // Return true if the player is shot or touched by the AI, false otherwise
         return false;
     }
     
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Player has collided with something!" + blueFlag.IsCarried());
+        Debug.Log("Player has collided with something!" + blueFlag.IsCarriedByPlayer()); // Modify this line
         // Check if the player has reached their base with the flag
-        if (blueFlag.IsCarried() && other.gameObject.CompareTag("PlayerBase"))
+        if (blueFlag.IsCarriedByPlayer() && other.gameObject.CompareTag("PlayerBase")) // Modify this line
         {
             Debug.Log("Player has scored!");
             score++;
@@ -80,6 +83,7 @@ public class PlayerController : MonoBehaviour
             blueFlag.DropFlag();
             blueFlag.ResetFlag();
             redFlag.ResetFlag();
+            FS.RespawnFlags();
         }
     }
 
@@ -88,10 +92,12 @@ public class PlayerController : MonoBehaviour
         if (flag.isBlueFlag)
         {
             blueFlag = flag;
+            blueFlag.isCarriedByPlayer = true; // Add this line
         }
         else
         {
             redFlag = flag;
+            redFlag.isCarriedByPlayer = true; // Add this line
         }
     }
 }

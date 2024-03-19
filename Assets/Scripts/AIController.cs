@@ -24,29 +24,29 @@ public class AIController : MonoBehaviour
         {
             case State.ChaseFlag:
                 ChaseFlag();
-                if (playerFlag.IsCarried())
+                if (playerFlag.IsCarriedByPlayer()) 
                 {
                     state = State.ChasePlayer;
                 }
-                else if (aiFlag.IsCarried())
+                else if (aiFlag.IsCarriedByAI()) 
                 {
                     state = State.ReturnFlag;
                 }
                 break;
             case State.ChasePlayer:
                 ChasePlayer();
-                if (playerFlag.IsCarried())
+                if (playerFlag.IsCarriedByPlayer()) 
                 {
                     state = State.ChaseFlag;
                 }
-                else if (aiFlag.IsCarried())
+                else if (aiFlag.IsCarriedByAI()) 
                 {
                     state = State.ReturnFlag;
                 }
                 break;
             case State.ReturnFlag:
                 ReturnFlag();
-                if (aiFlag.IsCarried())
+                if (aiFlag.IsCarriedByAI()) 
                 {
                     state = State.ChaseFlag;
                 }
@@ -59,6 +59,7 @@ public class AIController : MonoBehaviour
             aiFlag.ResetFlag();
         }
     }
+
     bool TouchedByPlayer()
     {
         // Implement the logic to check if the AI is shot or touched by the player
@@ -91,19 +92,20 @@ public class AIController : MonoBehaviour
         // Check if the AI has reached the player's flag
         if (other.gameObject == playerFlag.gameObject)
         {
-            playerFlag.isCarried = true;
+            playerFlag.isCarriedByAI = true; 
             state = State.ReturnFlag;
         }
         // Check if the AI has reached its base with the flag
-        else if (other.gameObject == aiBase.gameObject && playerFlag.isCarried)
+        else if (other.gameObject == aiBase.gameObject && playerFlag.isCarriedByAI) 
         {
-            playerFlag.isCarried = false;
+            playerFlag.isCarriedByAI = false; 
             playerFlag.ResetFlag();
             playerC.Aiscore++;
             Debug.Log("AI Score: " + playerC.Aiscore);
         }
     }
-    public void FlagPickedUp(Flag flag) // Add this method
+
+    public void FlagPickedUp(Flag flag) 
     {
         if (flag == playerFlag)
         {
@@ -114,6 +116,4 @@ public class AIController : MonoBehaviour
             aiFlag = flag;
         }
     }
-
-
 }
