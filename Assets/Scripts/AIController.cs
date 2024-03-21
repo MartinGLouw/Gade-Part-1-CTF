@@ -20,6 +20,10 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("destination: " + agent.destination);
+        Debug.Log("AI State: " + state);
+        //Debug.Log("aiflagcarriedbyai: " + aiFlag.isCarriedByAI);
+        Debug.Log("playerflagcarriedbyplayer: " + playerFlag.isCarriedByPlayer);
         switch (state)
         {
             case State.ChaseFlag:
@@ -30,6 +34,7 @@ public class AIController : MonoBehaviour
                 }
                 else if (aiFlag.IsCarriedByAI()) 
                 {
+                    
                     state = State.ReturnFlag;
                 }
                 break;
@@ -69,8 +74,12 @@ public class AIController : MonoBehaviour
 
     void ChaseFlag()
     {
-        agent.SetDestination(playerBase.position);
+        if (state == State.ChaseFlag)
+        {
+            agent.SetDestination(playerBase.position);
+        }
     }
+
 
     void ChasePlayer()
     {
@@ -84,13 +93,17 @@ public class AIController : MonoBehaviour
 
     void ReturnFlag()
     {
-        agent.SetDestination(aiBase.position);
+        if (state == State.ReturnFlag)
+        {
+            agent.SetDestination(aiBase.position);
+        }
     }
+
 
     void OnTriggerEnter(Collider other)
     {
-        // Check if the AI has reached the player's flag
-        if (other.gameObject == playerFlag.gameObject)
+        // Check if the AI has reached the player's flag and is not already carrying it
+        if (other.gameObject == playerFlag.gameObject && !playerFlag.isCarriedByAI)
         {
             playerFlag.isCarriedByAI = true; 
             state = State.ReturnFlag;
@@ -105,6 +118,7 @@ public class AIController : MonoBehaviour
         }
     }
 
+
     public void FlagPickedUp(Flag flag) 
     {
         if (flag == playerFlag)
@@ -116,4 +130,5 @@ public class AIController : MonoBehaviour
             aiFlag = flag;
         }
     }
+    
 }

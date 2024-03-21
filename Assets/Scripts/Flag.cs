@@ -21,7 +21,7 @@ public class Flag : MonoBehaviour
         {
             if ((other.gameObject.name == "Player" && isBlueFlag) || (other.gameObject.name == "AI" && !isBlueFlag))
             {
-                Debug.Log("Player has picked up the flag!");
+                //Debug.Log("Player has picked up the flag!");
                 isCarriedByPlayer = true; 
                 Debug.Log(isCarriedByPlayer); 
                 transform.parent = other.transform;
@@ -34,7 +34,8 @@ public class Flag : MonoBehaviour
         }
         if (other.gameObject.CompareTag("AI"))
         {
-            if ((other.gameObject.name == "AI" && !isBlueFlag) || (other.gameObject.name == "Player" && isBlueFlag))
+            Debug.Log("AI has collided with the flag!");
+            if ((other.gameObject.name == "Ai player" && !isBlueFlag) || (other.gameObject.name == "Player" && isBlueFlag))
             {
                 Debug.Log("AI has picked up the flag!");
                 isCarriedByAI = true; 

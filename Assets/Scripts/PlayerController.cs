@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Player has collided with something!" + blueFlag.IsCarriedByPlayer()); // Modify this line
+        //Debug.Log("Player has collided with something!" + blueFlag.IsCarriedByPlayer()); // Modify this line
         // Check if the player has reached their base with the flag
         if (blueFlag.IsCarriedByPlayer() && other.gameObject.CompareTag("PlayerBase")) // Modify this line
         {
