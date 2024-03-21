@@ -11,6 +11,8 @@ public class AIController : MonoBehaviour
     private enum State { ChaseFlag, ChasePlayer, ReturnFlag }
     private State state;
     public PlayerController playerC;
+    public Flag redFlag;
+    public int AiScore = 0;
 
     void Start()
     {
@@ -51,10 +53,6 @@ public class AIController : MonoBehaviour
                 break;
             case State.ReturnFlag:
                 ReturnFlag();
-                if (aiFlag.IsCarriedByAI()) 
-                {
-                    state = State.ChaseFlag;
-                }
                 break;
         }
         if (TouchedByPlayer())
@@ -102,21 +100,27 @@ public class AIController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("AI has collided with something!" + aiFlag.isCarriedByAI);
         // Check if the AI has reached the player's flag and is not already carrying it
-        if (other.gameObject == playerFlag.gameObject && !playerFlag.isCarriedByAI)
+        if (other.gameObject == aiFlag.gameObject && !aiFlag.isCarriedByAI)
         {
-            playerFlag.isCarriedByAI = true; 
+            aiFlag.isCarriedByAI = true; 
             state = State.ReturnFlag;
         }
         // Check if the AI has reached its base with the flag
-        else if (other.gameObject == aiBase.gameObject && playerFlag.isCarriedByAI) 
+        else if (other.gameObject == aiBase.gameObject && aiFlag.isCarriedByAI) 
         {
-            playerFlag.isCarriedByAI = false; 
-            playerFlag.ResetFlag();
-            playerC.Aiscore++;
-            Debug.Log("AI Score: " + playerC.Aiscore);
+            aiFlag.isCarriedByAI = false; 
+            aiFlag.ResetFlag();
+            aiFlag.DropFlag();
+            
+            aiFlag.ResetFlag();
+            AiScore++; // AI scores a point
+            Debug.Log("AI Score: " + AiScore);
+            state = State.ChaseFlag;
         }
     }
+
 
 
     public void FlagPickedUp(Flag flag) 

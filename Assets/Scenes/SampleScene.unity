@@ -159,6 +159,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 447321546887083885, guid: 2c3ca58f8d0d5b743a61a1052df3458f, type: 3}
+      propertyPath: FS
+      value: 
+      objectReference: {fileID: 1880234582}
+    - target: {fileID: 447321546887083885, guid: 2c3ca58f8d0d5b743a61a1052df3458f, type: 3}
       propertyPath: redBase
       value: 
       objectReference: {fileID: 1699403245}
@@ -632,6 +636,8 @@ MonoBehaviour:
   playerFlag: {fileID: 1855457114}
   aiFlag: {fileID: 531915374}
   playerC: {fileID: 657584405}
+  redFlag: {fileID: 0}
+  AiScore: 0
 --- !u!195 &849152124
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -933,8 +939,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.09523, y: 1, z: 2.1460476}
-  m_Center: {x: -0.048259735, y: 0, z: -0.1978178}
+  m_Size: {x: 31.495882, y: 1, z: 16.51495}
+  m_Center: {x: -3.2991018, y: 0, z: -0.9242935}
 --- !u!1001 &1162160951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -943,6 +949,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3727685749528948454, guid: 1ecb6b7fac1791541ab5d2d7829caef1, type: 3}
+      propertyPath: FS
+      value: 
+      objectReference: {fileID: 1880234582}
     - target: {fileID: -3727685749528948454, guid: 1ecb6b7fac1791541ab5d2d7829caef1, type: 3}
       propertyPath: redBase
       value: 
@@ -1133,8 +1143,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.36948, y: 1, z: 2.2510624}
-  m_Center: {x: -0.46434593, y: 0, z: 0.0379076}
+  m_Size: {x: 29.464825, y: 1, z: 16.224165}
+  m_Center: {x: -1.1592236, y: 0, z: -1.0232458}
 --- !u!1 &1855457113 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5535733175831737135, guid: 1ecb6b7fac1791541ab5d2d7829caef1, type: 3}

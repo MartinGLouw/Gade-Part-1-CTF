@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
             blueFlag.DropFlag();
             blueFlag.ResetFlag();
             redFlag.ResetFlag();
-            FS.RespawnFlags();
+            
         }
     }
 
