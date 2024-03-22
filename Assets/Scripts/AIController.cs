@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+
 
 public class AIController : MonoBehaviour
 {
@@ -8,8 +10,9 @@ public class AIController : MonoBehaviour
     public Flag playerFlag;
     public Flag aiFlag;
     private NavMeshAgent agent;
-    private enum State { ChaseFlag, ChasePlayer, ReturnFlag }
-    private State state;
+
+    public enum State { ChaseFlag, ChasePlayer, ReturnFlag }
+    public State state;
     public PlayerController playerC;
     public Flag redFlag;
     public int AiScore = 0;
@@ -18,12 +21,13 @@ public class AIController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         state = State.ChaseFlag;
+        
     }
 
     void Update()
     {
-        Debug.Log("destination: " + agent.destination);
-        Debug.Log("AI State: " + state);
+        //Debug.Log("destination: " + agent.destination);
+       // Debug.Log("AI State: " + state);
         //Debug.Log("aiflagcarriedbyai: " + aiFlag.isCarriedByAI);
         Debug.Log("playerflagcarriedbyplayer: " + playerFlag.isCarriedByPlayer);
         switch (state)
@@ -42,14 +46,6 @@ public class AIController : MonoBehaviour
                 break;
             case State.ChasePlayer:
                 ChasePlayer();
-                if (playerFlag.IsCarriedByPlayer()) 
-                {
-                    state = State.ChaseFlag;
-                }
-                else if (aiFlag.IsCarriedByAI()) 
-                {
-                    state = State.ReturnFlag;
-                }
                 break;
             case State.ReturnFlag:
                 ReturnFlag();
@@ -62,14 +58,12 @@ public class AIController : MonoBehaviour
             aiFlag.ResetFlag();
         }
     }
-
     bool TouchedByPlayer()
     {
         // Implement the logic to check if the AI is shot or touched by the player
         // Return true if the AI is shot or touched by the player, false otherwise
         return false;
     }
-
     void ChaseFlag()
     {
         if (state == State.ChaseFlag)
@@ -77,10 +71,9 @@ public class AIController : MonoBehaviour
             agent.SetDestination(playerBase.position);
         }
     }
-
-
     void ChasePlayer()
     {
+        Debug.Log("Chasing player!");
         // Assuming the player object is tagged "Player" in Unity
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -88,7 +81,6 @@ public class AIController : MonoBehaviour
             agent.SetDestination(player.transform.position);
         }
     }
-
     void ReturnFlag()
     {
         if (state == State.ReturnFlag)
@@ -96,8 +88,6 @@ public class AIController : MonoBehaviour
             agent.SetDestination(aiBase.position);
         }
     }
-
-
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("AI has collided with something!" + aiFlag.isCarriedByAI);
@@ -108,16 +98,18 @@ public class AIController : MonoBehaviour
             state = State.ReturnFlag;
         }
         // Check if the AI has reached its base with the flag
-        else if (other.gameObject == aiBase.gameObject && aiFlag.isCarriedByAI) 
+        else if (other.gameObject == aiBase.gameObject && aiFlag.isCarriedByAI)
         {
-            aiFlag.isCarriedByAI = false; 
+            aiFlag.isCarriedByAI = false;
             aiFlag.ResetFlag();
             aiFlag.DropFlag();
-            
-            aiFlag.ResetFlag();
-            AiScore++; // AI scores a point
-            Debug.Log("AI Score: " + AiScore);
-            state = State.ChaseFlag;
+            ScoreManager.Instance.IncrementAIScore(); // Increment AI score
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        if (redFlag.IsCarriedByAI() && other.gameObject.CompareTag("Player")) 
+        {
+            Debug.Log("AI has collided with player!");
+            redFlag.DropFlag();
         }
     }
 

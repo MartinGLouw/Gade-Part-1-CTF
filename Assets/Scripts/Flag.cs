@@ -9,6 +9,7 @@ public class Flag : MonoBehaviour
     public bool isCarriedByAI = false; 
     public PlayerController playerController; 
     public AIController aiController;
+    public FlagSpawner FS;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class Flag : MonoBehaviour
                 isCarriedByPlayer = true; 
                 transform.parent = other.transform;
                 playerController.FlagPickedUp(this);
+                aiController.state = AIController.State.ChasePlayer;
             }
             else
             {
@@ -66,11 +68,23 @@ public class Flag : MonoBehaviour
         isCarriedByPlayer = false; 
         isCarriedByAI = false; 
         transform.parent = null; 
+        aiController.state = AIController.State.ChaseFlag;
     }
 
     public void ResetFlag()
     {
-        Destroy(GameObject.FindWithTag("BlueFlag"));
+        isCarriedByPlayer = false; 
+        isCarriedByAI = false; 
+        transform.parent = null; 
+
+        // Move blue flag to red base
+        GameObject.FindWithTag("BlueFlag").transform.position = redBase.transform.position;
+
+        // Move red flag to blue base
+        GameObject.FindWithTag("RedFlag").transform.position = blueBase.transform.position;
+
         transform.position = isBlueFlag ? blueBase.transform.position : redBase.transform.position;
+        
     }
+
 }

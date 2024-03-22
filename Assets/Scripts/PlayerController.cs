@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 10.0f;
@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     public int score = 0;
     public int Aiscore = 0;
     public FlagSpawner FS;
-
+    public AIController AI;
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        blueFlag.isCarriedByPlayer = false;
     }
+    
 
     void Update()
     {
@@ -73,31 +75,37 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Player has collided with something!" + blueFlag.IsCarriedByPlayer()); // Modify this line
+        Debug.Log("Player has collided with something!" + blueFlag.IsCarriedByPlayer()); 
         // Check if the player has reached their base with the flag
-        if (blueFlag.IsCarriedByPlayer() && other.gameObject.CompareTag("PlayerBase")) // Modify this line
+        if (blueFlag.IsCarriedByPlayer() && other.gameObject.CompareTag("PlayerBase"))
         {
-            Debug.Log("Player has scored!");
-            score++;
-            Debug.Log("Score: " + score);
             blueFlag.DropFlag();
             blueFlag.ResetFlag();
             redFlag.ResetFlag();
-            
+            ScoreManager.Instance.IncrementPlayerScore(); // Increment player score
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        if (blueFlag.IsCarriedByPlayer() && other.gameObject.CompareTag("AI")) 
+        {
+           blueFlag.DropFlag();
+        }
+        
+            
+        
     }
 
-    public void FlagPickedUp(Flag flag) // Add this method
+    public void FlagPickedUp(Flag flag)
     {
         if (flag.isBlueFlag)
         {
             blueFlag = flag;
-            blueFlag.isCarriedByPlayer = true; // Add this line
+            blueFlag.isCarriedByPlayer = true; 
         }
         else
         {
             redFlag = flag;
-            redFlag.isCarriedByPlayer = true; // Add this line
+            redFlag.isCarriedByPlayer = true; 
         }
     }
 }

@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 657584401}
   - component: {fileID: 657584400}
   - component: {fileID: 657584405}
+  - component: {fileID: 657584406}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -345,7 +346,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -438,6 +439,34 @@ MonoBehaviour:
   score: 0
   Aiscore: 0
   FS: {fileID: 0}
+  AI: {fileID: 849152123}
+--- !u!54 &657584406
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657584399}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,8 +664,9 @@ MonoBehaviour:
   aiBase: {fileID: 1157460896}
   playerFlag: {fileID: 1855457114}
   aiFlag: {fileID: 531915374}
+  state: 0
   playerC: {fileID: 657584405}
-  redFlag: {fileID: 0}
+  redFlag: {fileID: 1855457114}
   AiScore: 0
 --- !u!195 &849152124
 NavMeshAgent:
@@ -648,7 +678,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 20.03
+  m_Speed: 2.74
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -668,7 +698,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849152118}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -685,7 +715,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!136 &849152126
 CapsuleCollider:
@@ -969,6 +999,10 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 657584405}
+    - target: {fileID: -3727685749528948454, guid: 1ecb6b7fac1791541ab5d2d7829caef1, type: 3}
+      propertyPath: isCarriedByPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4214793994292181890, guid: 1ecb6b7fac1791541ab5d2d7829caef1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -53.17163
@@ -1145,6 +1179,52 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 29.464825, y: 1, z: 16.224165}
   m_Center: {x: -1.1592236, y: 0, z: -1.0232458}
+--- !u!1 &1799834173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1799834175}
+  - component: {fileID: 1799834174}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1799834174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799834173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf66e75bf3f262469f63feb23624942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScore: 0
+  aiScore: 0
+--- !u!4 &1799834175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799834173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 26.640306, y: 5.5827274, z: 15.784197}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1855457113 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5535733175831737135, guid: 1ecb6b7fac1791541ab5d2d7829caef1, type: 3}
@@ -1253,3 +1333,4 @@ SceneRoots:
   - {fileID: 1880234583}
   - {fileID: 1162160951}
   - {fileID: 273301702}
+  - {fileID: 1799834175}
