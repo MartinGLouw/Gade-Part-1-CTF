@@ -6,10 +6,11 @@ public class FlagSpawner : MonoBehaviour
     public GameObject redFlagPrefab;
     public Transform blueBase;
     public Transform redBase;
+    public ScoreManager scoreManager;
 
     void Start()
     {
-        SpawnFlags();
+        SpawnFlags();   
     }
 
     public void SpawnFlags()

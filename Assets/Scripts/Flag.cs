@@ -10,6 +10,8 @@ public class Flag : MonoBehaviour
     public PlayerController playerController; 
     public AIController aiController;
     public FlagSpawner FS;
+    public GameObject MiddleBlue;
+    public GameObject MiddleRed;
 
     void Start()
     {
@@ -73,17 +75,18 @@ public class Flag : MonoBehaviour
 
     public void ResetFlag()
     {
-        isCarriedByPlayer = false; 
-        isCarriedByAI = false; 
-        transform.parent = null; 
-
         // Move blue flag to red base
         GameObject.FindWithTag("BlueFlag").transform.position = redBase.transform.position;
 
         // Move red flag to blue base
         GameObject.FindWithTag("RedFlag").transform.position = blueBase.transform.position;
+        isCarriedByPlayer = false; 
+        isCarriedByAI = false; 
+        transform.parent = null; 
 
-        transform.position = isBlueFlag ? blueBase.transform.position : redBase.transform.position;
+        
+
+        //transform.position = isBlueFlag ? blueBase.transform.position : redBase.transform.position;
         
     }
 

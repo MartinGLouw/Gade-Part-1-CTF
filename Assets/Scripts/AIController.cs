@@ -27,9 +27,9 @@ public class AIController : MonoBehaviour
     void Update()
     {
         //Debug.Log("destination: " + agent.destination);
-       // Debug.Log("AI State: " + state);
+       Debug.Log("AI State: " + state);
         //Debug.Log("aiflagcarriedbyai: " + aiFlag.isCarriedByAI);
-        Debug.Log("playerflagcarriedbyplayer: " + playerFlag.isCarriedByPlayer);
+        //Debug.Log("playerflagcarriedbyplayer: " + playerFlag.isCarriedByPlayer);
         switch (state)
         {
             case State.ChaseFlag:
@@ -51,19 +51,9 @@ public class AIController : MonoBehaviour
                 ReturnFlag();
                 break;
         }
-        if (TouchedByPlayer())
-        {
-            playerFlag.DropFlag();
-            playerFlag.ResetFlag();
-            aiFlag.ResetFlag();
-        }
+        
     }
-    bool TouchedByPlayer()
-    {
-        // Implement the logic to check if the AI is shot or touched by the player
-        // Return true if the AI is shot or touched by the player, false otherwise
-        return false;
-    }
+    
     void ChaseFlag()
     {
         if (state == State.ChaseFlag)
@@ -108,8 +98,12 @@ public class AIController : MonoBehaviour
         }
         if (redFlag.IsCarriedByAI() && other.gameObject.CompareTag("Player")) 
         {
+            
             Debug.Log("AI has collided with player!");
+            
             redFlag.DropFlag();
+            state = State.ChaseFlag;
+            
         }
     }
 

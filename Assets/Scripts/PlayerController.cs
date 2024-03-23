@@ -16,8 +16,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        controller.height = 2.0f; // Set the player's height to 2 units
         blueFlag.isCarriedByPlayer = false;
     }
+
     
 
     void Update()
@@ -29,7 +31,7 @@ public class PlayerController : MonoBehaviour
         {
             direction = new Vector3(moveHorizontal, 0.0f, moveVertical);
             direction = Camera.main.transform.TransformDirection(direction);
-            direction.y = 0;
+            direction.y = 0; // Ignore vertical movement
             direction = direction.normalized;
             this.transform.forward = direction;
         }
@@ -47,30 +49,12 @@ public class PlayerController : MonoBehaviour
             controller.Move(direction * speed * Time.deltaTime);
         }
 
-        if (controller.isGrounded)
-        {
-            if (Input.GetButtonDown("Jump"))
-            {
-                direction.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
-            }
-        }
-
-        direction.y += Physics.gravity.y * Time.deltaTime;
+        
 
         controller.Move(direction * Time.deltaTime);
-        if (TouchedByAI())
-        {
-            blueFlag.DropFlag();
-            blueFlag.ResetFlag();
-            redFlag.ResetFlag();
-        }
+        
     }
-    bool TouchedByAI()
-    {
-        // Implement the logic to check if the player is shot or touched by the AI
-        // Return true if the player is shot or touched by the AI, false otherwise
-        return false;
-    }
+    
     
 
     void OnTriggerEnter(Collider other)
@@ -86,10 +70,26 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        if (blueFlag.IsCarriedByPlayer() && other.gameObject.CompareTag("AI")) 
+        if (blueFlag.IsCarriedByPlayer() && other.gameObject.CompareTag("AI"))
         {
-           blueFlag.DropFlag();
+            Debug.Log("Player has collided with AI! WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+            AI.state = AIController.State.ChaseFlag;
+            blueFlag.DropFlag();
+
+            blueFlag.ResetFlag();
+
+
+            
+
+
         }
+
+        if (transform.position.y > 1.0f) // Replace 1.0f with the maximum allowed height
+           {
+               Vector3 resetPosition = new Vector3(transform.position.x, 1.0f, transform.position.z); // Replace 1.0f with the maximum allowed height
+               transform.position = resetPosition;
+           }
+        
         
             
         
