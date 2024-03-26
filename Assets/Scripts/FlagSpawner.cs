@@ -28,7 +28,7 @@ public class FlagSpawner : MonoBehaviour
         Destroy(GameObject.FindWithTag("BlueFlag"));
         Destroy(GameObject.FindWithTag("RedFlag"));
 
-        // Spawn new flags
+        
         
     }
 }

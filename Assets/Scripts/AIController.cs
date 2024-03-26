@@ -74,7 +74,7 @@ public class AIController : MonoBehaviour
     void ChasePlayer()
     {
         Debug.Log("Chasing player!");
-        // Assuming the player object is tagged "Player" in Unity
+        
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {

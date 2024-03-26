@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        controller.height = 2.0f; // Set the player's height to 2 units
+        controller.height = 2.0f; 
         blueFlag.isCarriedByPlayer = false;
     }
 
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
             blueFlag.DropFlag();
             blueFlag.ResetFlag();
             redFlag.ResetFlag();
-            ScoreManager.Instance.IncrementPlayerScore(); // Increment player score
+            ScoreManager.Instance.IncrementPlayerScore(); 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
@@ -79,9 +79,9 @@ public class PlayerController : MonoBehaviour
             blueFlag.ResetFlag();
         }
         
-        if (transform.position.y > 1.0f) // Replace 1.0f with the maximum allowed height
+        if (transform.position.y > 1.0f) 
            {
-               Vector3 resetPosition = new Vector3(transform.position.x, 1.0f, transform.position.z); // Replace 1.0f with the maximum allowed height
+               Vector3 resetPosition = new Vector3(transform.position.x, 1.0f, transform.position.z); 
                transform.position = resetPosition;
            }
     }
