@@ -12,6 +12,7 @@ public class Flag : MonoBehaviour
     public FlagSpawner FS;
     public GameObject MiddleBlue;
     public GameObject MiddleRed;
+    public bool isRedFlag;
 
     void Start()
     {
@@ -70,6 +71,7 @@ public class Flag : MonoBehaviour
         isCarriedByPlayer = false; 
         isCarriedByAI = false; 
         transform.parent = null; 
+        transform.position = isBlueFlag ? MiddleBlue.transform.position : MiddleRed.transform.position;
         aiController.state = AIController.State.ChaseFlag;
     }
 

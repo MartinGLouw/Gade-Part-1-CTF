@@ -77,22 +77,13 @@ public class PlayerController : MonoBehaviour
             blueFlag.DropFlag();
 
             blueFlag.ResetFlag();
-
-
-            
-
-
         }
-
+        
         if (transform.position.y > 1.0f) // Replace 1.0f with the maximum allowed height
            {
                Vector3 resetPosition = new Vector3(transform.position.x, 1.0f, transform.position.z); // Replace 1.0f with the maximum allowed height
                transform.position = resetPosition;
            }
-        
-        
-            
-        
     }
 
     public void FlagPickedUp(Flag flag)

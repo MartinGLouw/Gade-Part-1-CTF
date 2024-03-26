@@ -7,6 +7,8 @@ public class AIController : MonoBehaviour
 {
     public Transform playerBase;
     public Transform aiBase;
+    public Transform midBase;
+    public bool PlayerCollided = false;
     public Flag playerFlag;
     public Flag aiFlag;
     private NavMeshAgent agent;
@@ -58,7 +60,15 @@ public class AIController : MonoBehaviour
     {
         if (state == State.ChaseFlag)
         {
-            agent.SetDestination(playerBase.position);
+            if (PlayerCollided == true)
+            {
+                agent.SetDestination(midBase.position);
+            }
+            else
+            {
+                agent.SetDestination(playerBase.position);
+            }
+            
         }
     }
     void ChasePlayer()
@@ -80,6 +90,19 @@ public class AIController : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
+        if (aiFlag.IsCarriedByAI() && other.gameObject.CompareTag("Player")) 
+        {
+            
+            Debug.Log("AI has collided with player!");
+            
+            redFlag.DropFlag();
+            state = State.ChaseFlag;
+            aiFlag.transform.parent = null;
+            aiFlag.transform.position = aiFlag.MiddleRed.transform.position;
+            aiFlag.isCarriedByAI = false;
+            PlayerCollided = true;
+            
+        }
         Debug.Log("AI has collided with something!" + aiFlag.isCarriedByAI);
         // Check if the AI has reached the player's flag and is not already carrying it
         if (other.gameObject == aiFlag.gameObject && !aiFlag.isCarriedByAI)
@@ -95,16 +118,9 @@ public class AIController : MonoBehaviour
             aiFlag.DropFlag();
             ScoreManager.Instance.IncrementAIScore(); // Increment AI score
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        if (redFlag.IsCarriedByAI() && other.gameObject.CompareTag("Player")) 
-        {
-            
-            Debug.Log("AI has collided with player!");
-            
-            redFlag.DropFlag();
-            state = State.ChaseFlag;
             
         }
+        
     }
 
 
